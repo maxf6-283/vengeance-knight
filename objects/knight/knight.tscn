@@ -20,3 +20,13 @@ shape = SubResource("RectangleShape2D_1wu7s")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
+
+[node name="CoyoteFrameTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="CoyoteFrameTimer" to="." method="_on_coyote_frame_timer_timeout"]

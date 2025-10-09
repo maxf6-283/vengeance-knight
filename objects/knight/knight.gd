@@ -53,7 +53,7 @@ func _ready():
 func _physics_process(delta):
 	var fall_speed = max_fall_speed
 	
-	if is_on_wall():
+	if is_on_wall() and not Input.is_action_pressed("move_down"):
 		fall_speed = max_wall_fall_speed
 	
 	if on_ladder:
@@ -122,6 +122,8 @@ func _on_coyote_frame_timer_timeout() -> void:
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("ladder_map"):
 		on_ladder = true
+	if body.is_in_group("hazard_map"):
+		hazard_respawn()
 
 
 func _on_hurt_box_body_exited(body: Node2D) -> void:

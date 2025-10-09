@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=4 uid="uid://dmj34e3vqs7v8"]
+
+[ext_resource type="Texture2D" uid="uid://c0yu0r6675ywm" path="res://assets/dummy_tilemap.png" id="1_e4heu"]
+[ext_resource type="PackedScene" uid="uid://dpyi27wp7jgdd" path="res://objects/knight/knight.tscn" id="2_q7tqi"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a5ma0"]
+texture = ExtResource("1_e4heu")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_vbwc5"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_a5ma0")
+
+[node name="DummyLevel" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAoAAQADAAEAAAABAAoAAQAAAAAAAAACAAoAAQAAAAAAAAADAAoAAQAAAAAAAAAEAAoAAQAAAAAAAAAFAAoAAQAAAAAAAAAGAAoAAQAAAAAAAAAHAAoAAQABAAIAAAACAAsAAQABAAAAAAADAAsAAQAAAAAAAAAEAAsAAQAAAAAAAAAFAAsAAQACAAEAAAAMAAkAAQAAAAAAAAANAAkAAQAAAAAAAAAOAAkAAQAAAAAAAAAPAAkAAQAAAAAAAAAQAAkAAQAAAAAAAAALAAkAAQADAAEAAAARAAkAAQABAAIAAAA=")
+tile_set = SubResource("TileSet_vbwc5")
+
+[node name="Knight" parent="." instance=ExtResource("2_q7tqi")]
+position = Vector2(48, 111)

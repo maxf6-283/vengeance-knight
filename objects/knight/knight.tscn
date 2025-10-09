@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpyi27wp7jgdd"]
+
+[ext_resource type="Script" uid="uid://breka23xsnydt" path="res://objects/knight/knight.gd" id="1_xnh7u"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ag87y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wu7s"]
+size = Vector2(23, 36)
+
+[node name="Knight" type="CharacterBody2D"]
+script = ExtResource("1_xnh7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.7683716e-07, 9.536743e-07)
+scale = Vector2(23.437502, 35.562504)
+texture = SubResource("PlaceholderTexture2D_ag87y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1wu7s")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true

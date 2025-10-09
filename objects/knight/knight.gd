@@ -7,16 +7,36 @@ extends CharacterBody2D
 @export var wall_jump_velocity_y = 350
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_fall_speed = 2000
+@export var max_fall_speed = 2000
 @export var max_wall_fall_speed = 100
 
-enum WallDirection {
-	LEFT,
-	RIGHT,
-	NONE
+@export var roll_start_speed = 800
+@export var roll_end_speed = 400
+
+enum FacingDirection {
+	LEFT = -1,
+	RIGHT = 1,
+	NONE = 0
 }
 
-var last_wall_direction = WallDirection.NONE
+@export var facing = FacingDirection.RIGHT
+
+var rolling = false
+var roll_speed = 0.0
+
+const roll_time = 0.2 #s
+
+var last_wall_direction = FacingDirection.NONE
+
+func start_roll(direction: int):
+	rolling = true
+	velocity.y = 0
+	$Sprite2D.scale.y = 20
+	var roll_tween = create_tween()
+	roll_tween.tween_property(self, "roll_speed", direction * roll_end_speed, roll_time) \
+			.from(direction * roll_start_speed).set_trans(Tween.TRANS_QUAD)
+	roll_tween.tween_callback(func(): rolling = false; $Sprite2D.scale.y = 35; $RollCooldownTimer.start())
+	roll_tween.play()
 
 func _physics_process(delta):
 	var fall_speed = max_fall_speed
@@ -28,23 +48,33 @@ func _physics_process(delta):
 		velocity.y = move_toward(velocity.y, fall_speed, gravity * delta)
 		
 
-	var direction = Input.get_axis("walk_left", "walk_right")
-	velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
+	if not rolling:
+		var direction = Input.get_axis("walk_left", "walk_right")
+		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
+		if direction > 0:
+			facing = FacingDirection.RIGHT
+		elif direction < 0:
+			facing = FacingDirection.LEFT
+	else:
+		velocity.x = roll_speed
 
 	if Input.is_action_just_pressed("jump"):
 		$JumpBufferTimer.start() 
 
 	if not $JumpBufferTimer.is_stopped() and not $CoyoteFrameTimer.is_stopped():
-		if last_wall_direction == WallDirection.LEFT:
-			velocity.x = wall_jump_velocity_x
-			velocity.y = -wall_jump_velocity_y
-		elif last_wall_direction == WallDirection.RIGHT:
-			velocity.x = -wall_jump_velocity_x
-			velocity.y = -wall_jump_velocity_y
-		else:
+		if last_wall_direction == FacingDirection.NONE:
 			velocity.y = -jump_velocity
+		else:
+			velocity.x = - last_wall_direction * wall_jump_velocity_x
+			velocity.y = -wall_jump_velocity_y
+
 		$CoyoteFrameTimer.stop()
 		$JumpBufferTimer.stop()
+		rolling = false
+
+	if Input.is_action_just_pressed("roll") \
+			and not rolling and $RollCooldownTimer.is_stopped():
+		start_roll(facing)
 
 	move_and_slide()
 	
@@ -52,18 +82,18 @@ func _physics_process(delta):
 		$CoyoteFrameTimer.start()
 
 	if is_on_floor():
-		last_wall_direction = WallDirection.NONE
+		last_wall_direction = FacingDirection.NONE
 	elif is_on_wall():
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
 			if collision.get_normal().x < 0:
-				last_wall_direction = WallDirection.RIGHT
+				last_wall_direction = FacingDirection.RIGHT
 				break
 			elif collision.get_normal().x > 0:
-				last_wall_direction = WallDirection.LEFT
+				last_wall_direction = FacingDirection.LEFT
 				break
 		
 
 
 func _on_coyote_frame_timer_timeout() -> void:
-	last_wall_direction = WallDirection.NONE
+	last_wall_direction = FacingDirection.NONE

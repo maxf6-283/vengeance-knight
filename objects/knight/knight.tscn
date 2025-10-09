@@ -5,14 +5,14 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ag87y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wu7s"]
-size = Vector2(23, 36)
+size = Vector2(23, 35)
 
 [node name="Knight" type="CharacterBody2D"]
 script = ExtResource("1_xnh7u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4.7683716e-07, 9.536743e-07)
-scale = Vector2(23.437502, 35.562504)
+scale = Vector2(23.067, 35)
 texture = SubResource("PlaceholderTexture2D_ag87y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -27,6 +27,10 @@ one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
+
+[node name="RollCooldownTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
 
 [connection signal="timeout" from="CoyoteFrameTimer" to="." method="_on_coyote_frame_timer_timeout"]

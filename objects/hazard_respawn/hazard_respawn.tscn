@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckf3bpwphhbuw"]
+
+[ext_resource type="Script" uid="uid://bx6fx25x0ho11" path="res://objects/hazard_respawn/hazard_respawn.gd" id="1_mnuq4"]
+
+[node name="HazardRespawn" type="Area2D"]
+script = ExtResource("1_mnuq4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

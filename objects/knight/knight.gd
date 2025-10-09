@@ -38,8 +38,14 @@ func start_roll(direction: int):
 	var roll_tween = create_tween()
 	roll_tween.tween_property(self, "roll_speed", direction * roll_end_speed, roll_time) \
 			.from(direction * roll_start_speed).set_trans(Tween.TRANS_QUAD)
-	roll_tween.tween_callback(func(): rolling = false; $Sprite2D.scale.y = 35; $RollCooldownTimer.start())
+	roll_tween.tween_callback(end_roll)
 	roll_tween.play()
+
+func end_roll():
+	if rolling:
+		rolling = false
+		$Sprite2D.scale.y = 35
+		$RollCooldownTimer.start()
 
 func _ready():
 	respawn_location = position
@@ -82,7 +88,7 @@ func _physics_process(delta):
 
 		$CoyoteFrameTimer.stop()
 		$JumpBufferTimer.stop()
-		rolling = false
+		end_roll()
 
 	if Input.is_action_just_pressed("roll") \
 			and not rolling and $RollCooldownTimer.is_stopped():

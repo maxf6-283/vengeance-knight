@@ -1,24 +1,81 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpyi27wp7jgdd"]
+[gd_scene load_steps=13 format=3 uid="uid://dpyi27wp7jgdd"]
 
 [ext_resource type="Script" uid="uid://breka23xsnydt" path="res://objects/knight/knight.gd" id="1_xnh7u"]
+[ext_resource type="Texture2D" uid="uid://cr1vttptgsmo0" path="res://assets/knight_idle.png" id="2_nu1vt"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ag87y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wnhg"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iynps"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vveg4"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j06qx"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4iel"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g752n"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8e5b"]
+atlas = ExtResource("2_nu1vt")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2an3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wnhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iynps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vveg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j06qx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4iel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g752n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8e5b")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wu7s"]
-size = Vector2(23, 35)
+size = Vector2(22, 43)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2iyq"]
-size = Vector2(22.953125, 31.5625)
+size = Vector2(21, 42.5)
 
 [node name="Knight" type="CharacterBody2D"]
 script = ExtResource("1_xnh7u")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(4.7683716e-07, 9.536743e-07)
-scale = Vector2(23.067, 35)
-texture = SubResource("PlaceholderTexture2D_ag87y")
+[node name="KnightSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_2an3b")
+animation = &"idle"
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_1wu7s")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -40,6 +97,7 @@ one_shot = true
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 5.25)
 shape = SubResource("RectangleShape2D_o2iyq")
 debug_color = Color(0.9874309, 0, 0.31808007, 0.41960785)
 

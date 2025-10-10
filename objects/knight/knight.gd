@@ -22,7 +22,11 @@ enum FacingDirection {
 	NONE = 0
 }
 
-@export var facing = FacingDirection.RIGHT
+@export var facing = FacingDirection.RIGHT:
+	set(new_val):
+		facing = new_val
+		if facing:
+			$KnightSprite.scale.x = abs($KnightSprite.scale.x) * facing
 
 var rolling = false
 var roll_speed = 0.0
@@ -34,7 +38,6 @@ var on_ladder = false
 func start_roll(direction: int):
 	rolling = true
 	velocity.y = 0
-	$Sprite2D.scale.y = 20
 	var roll_tween = create_tween()
 	roll_tween.tween_property(self, "roll_speed", direction * roll_end_speed, roll_time) \
 			.from(direction * roll_start_speed).set_trans(Tween.TRANS_QUAD)
@@ -44,11 +47,11 @@ func start_roll(direction: int):
 func end_roll():
 	if rolling:
 		rolling = false
-		$Sprite2D.scale.y = 35
 		$RollCooldownTimer.start()
 
 func _ready():
 	respawn_location = position
+	$KnightSprite.play("idle")
 
 func _physics_process(delta):
 	var fall_speed = max_fall_speed
@@ -133,3 +136,4 @@ func _on_hurt_box_body_exited(body: Node2D) -> void:
 func hazard_respawn():
 	position = respawn_location
 	velocity = Vector2(0, 0)
+	end_roll()

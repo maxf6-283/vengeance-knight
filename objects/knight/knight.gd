@@ -53,6 +53,12 @@ func _ready():
 	respawn_location = position
 	$KnightSprite.play("idle")
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_pressed("walk_left") or Input.is_action_pressed("walk_right"):
+		$KnightSprite.play("run")
+	elif event.is_action_released("walk_left") or event.is_action_released("walk_right"):
+		$KnightSprite.play("idle")
+
 func _physics_process(delta):
 	var fall_speed = max_fall_speed
 	

@@ -38,6 +38,10 @@ var on_ladder = false
 func start_roll(direction: int):
 	rolling = true
 	velocity.y = 0
+	$RollHitBox.disabled = false
+	$HitBox.disabled = true
+	$HurtBox/RollHurtbox.disabled = false
+	$HurtBox/BaseHurtbox.disabled = true
 	var roll_tween = create_tween()
 	roll_tween.tween_property(self, "roll_speed", direction * roll_end_speed, roll_time) \
 			.from(direction * roll_start_speed).set_trans(Tween.TRANS_QUAD)
@@ -54,9 +58,9 @@ func _ready():
 	$KnightSprite.play("idle")
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("walk_left") or Input.is_action_pressed("walk_right"):
+	if not $KnightSprite.animation == "roll" and (Input.is_action_pressed("walk_left") or Input.is_action_pressed("walk_right")):
 		$KnightSprite.play("run")
-	elif event.is_action_released("walk_left") or event.is_action_released("walk_right"):
+	elif not $KnightSprite.animation == "roll" and (event.is_action_released("walk_left") or event.is_action_released("walk_right")):
 		$KnightSprite.play("idle")
 
 func _physics_process(delta):
@@ -101,7 +105,8 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("roll") \
 			and not rolling and $RollCooldownTimer.is_stopped():
-		start_roll(facing)
+		$RollStartTimer.start()
+		$KnightSprite.play("roll")
 
 	move_and_slide()
 	
@@ -143,3 +148,15 @@ func hazard_respawn():
 	position = respawn_location
 	velocity = Vector2(0, 0)
 	end_roll()
+
+
+func _on_knight_sprite_animation_finished() -> void:
+	if $KnightSprite.animation == "roll":
+		if Input.is_action_pressed("walk_left") or Input.is_action_pressed("walk_right"):
+			$KnightSprite.play("run")
+		else:
+			$KnightSprite.play("idle")
+
+
+func _on_roll_start_timer_timeout() -> void:
+	start_roll(facing)

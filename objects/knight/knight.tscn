@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://dpyi27wp7jgdd"]
+[gd_scene load_steps=36 format=3 uid="uid://dpyi27wp7jgdd"]
 
 [ext_resource type="Script" uid="uid://breka23xsnydt" path="res://objects/knight/knight.gd" id="1_xnh7u"]
 [ext_resource type="Texture2D" uid="uid://cr1vttptgsmo0" path="res://assets/knight_idle.png" id="2_nu1vt"]
 [ext_resource type="Texture2D" uid="uid://dyj3d4g2cgiw6" path="res://assets/knight_running.png" id="3_7wnhg"]
+[ext_resource type="Texture2D" uid="uid://711sd6pj8adh" path="res://assets/knight_roll.png" id="3_iynps"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7wnhg"]
 atlas = ExtResource("2_nu1vt")
@@ -31,6 +32,54 @@ region = Rect2(320, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_c8e5b"]
 atlas = ExtResource("2_nu1vt")
 region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ed5sq"]
+atlas = ExtResource("3_iynps")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua8iq"]
+atlas = ExtResource("3_iynps")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7auhv"]
+atlas = ExtResource("3_iynps")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjjkh"]
+atlas = ExtResource("3_iynps")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm6dt"]
+atlas = ExtResource("3_iynps")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayg18"]
+atlas = ExtResource("3_iynps")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g4fa"]
+atlas = ExtResource("3_iynps")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ycyb"]
+atlas = ExtResource("3_iynps")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2ab0"]
+atlas = ExtResource("3_iynps")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc4kn"]
+atlas = ExtResource("3_iynps")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7iog"]
+atlas = ExtResource("3_iynps")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x303"]
+atlas = ExtResource("3_iynps")
+region = Rect2(704, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2an3b"]
 atlas = ExtResource("3_7wnhg")
@@ -94,6 +143,47 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ed5sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua8iq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7auhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjjkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lm6dt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayg18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g4fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ycyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2ab0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc4kn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7iog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x303")
+}],
+"loop": false,
+"name": &"roll",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2an3b")
 }, {
 "duration": 1.0,
@@ -128,18 +218,26 @@ size = Vector2(22, 43)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2iyq"]
 size = Vector2(21, 42.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iynps"]
+size = Vector2(21, 30.75)
+
 [node name="Knight" type="CharacterBody2D"]
 script = ExtResource("1_xnh7u")
 
 [node name="KnightSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_2an3b")
-animation = &"run"
-frame_progress = 0.07929827
+animation = &"roll"
+frame = 5
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_1wu7s")
+
+[node name="RollHitBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_1wu7s")
+disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
@@ -159,11 +257,23 @@ one_shot = true
 [node name="HurtBox" type="Area2D" parent="." groups=["knight_hurtbox"]]
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="BaseHurtbox" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, 5.25)
 shape = SubResource("RectangleShape2D_o2iyq")
 debug_color = Color(0.9874309, 0, 0.31808007, 0.41960785)
 
+[node name="RollHurtbox" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_iynps")
+disabled = true
+debug_color = Color(0.9601919, 0.092107065, 0.4524278, 0.41960785)
+
+[node name="RollStartTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="animation_finished" from="KnightSprite" to="." method="_on_knight_sprite_animation_finished"]
 [connection signal="timeout" from="CoyoteFrameTimer" to="." method="_on_coyote_frame_timer_timeout"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="body_exited" from="HurtBox" to="." method="_on_hurt_box_body_exited"]
+[connection signal="timeout" from="RollStartTimer" to="." method="_on_roll_start_timer_timeout"]

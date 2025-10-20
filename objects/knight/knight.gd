@@ -11,7 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var max_wall_fall_speed = 100
 
 @export var roll_start_speed = 600
-@export var roll_end_speed = 400
+@export var roll_end_speed = 350
 @export var roll_time = 0.15 #s
 
 var respawn_location: Vector2 = Vector2(0, 0)
@@ -52,6 +52,10 @@ func end_roll():
 	if rolling:
 		rolling = false
 		$RollCooldownTimer.start()
+		$RollHitBox.disabled = true
+		$HitBox.disabled = false
+		$HurtBox/RollHurtbox.disabled = true
+		$HurtBox/BaseHurtbox.disabled = false
 
 func _ready():
 	respawn_location = position

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dpyi27wp7jgdd"]
+[gd_scene load_steps=37 format=3 uid="uid://dpyi27wp7jgdd"]
 
 [ext_resource type="Script" uid="uid://breka23xsnydt" path="res://objects/knight/knight.gd" id="1_xnh7u"]
 [ext_resource type="Texture2D" uid="uid://cr1vttptgsmo0" path="res://assets/knight_idle.png" id="2_nu1vt"]
@@ -215,8 +215,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wu7s"]
 size = Vector2(22, 43)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vveg4"]
+size = Vector2(22, 31.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2iyq"]
-size = Vector2(21, 42.5)
+size = Vector2(21, 41.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iynps"]
 size = Vector2(21, 30.75)
@@ -235,8 +238,8 @@ position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_1wu7s")
 
 [node name="RollHitBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.5)
-shape = SubResource("RectangleShape2D_1wu7s")
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_vveg4")
 disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -258,7 +261,7 @@ one_shot = true
 collision_mask = 6
 
 [node name="BaseHurtbox" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 5.25)
+position = Vector2(0, 5.625)
 shape = SubResource("RectangleShape2D_o2iyq")
 debug_color = Color(0.9874309, 0, 0.31808007, 0.41960785)
 
